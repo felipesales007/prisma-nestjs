@@ -25,6 +25,7 @@ export class UserService {
         name: user.name,
         email: user.email,
         description: user.description,
+        photo: user.photo,
       },
     });
   }

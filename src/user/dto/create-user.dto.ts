@@ -1,5 +1,5 @@
 import { Exclude, Expose, Transform } from 'class-transformer';
-import { IsNotEmpty, Length } from 'class-validator';
+import { IsNotEmpty, IsOptional, Length } from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: 'Nome não pode ser vazio' })
@@ -12,8 +12,11 @@ export class CreateUserDto {
   @Transform(({ value }) => (value ? value.toLowerCase() : value))
   email: string;
 
-  @IsNotEmpty({ message: 'Descrição não pode ser vazia' })
-  description: string;
+  @IsOptional()
+  description?: string;
+
+  @IsOptional()
+  photo?: string;
 
   @Exclude()
   id: number;
