@@ -8,14 +8,15 @@ import {
   Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { Prisma } from '@prisma/client';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  async create(@Body() user: Prisma.UserCreateInput) {
+  async create(@Body() user: CreateUserDto) {
     return this.userService.create(user);
   }
 
@@ -30,7 +31,7 @@ export class UserController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() user: Prisma.UserCreateInput) {
+  async update(@Param('id') id: number, @Body() user: UpdateUserDto) {
     return this.userService.update(id, user);
   }
 
