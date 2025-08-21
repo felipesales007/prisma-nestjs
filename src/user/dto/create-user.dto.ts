@@ -12,6 +12,10 @@ export class CreateUserDto {
   @Transform(({ value }) => (value ? value.toLowerCase() : value))
   email: string;
 
+  @IsNotEmpty({ message: 'A senha não pode ser vazio' })
+  @Length(6, 10, { message: 'A senha precisa ter entre 6 e 10 caracteres' })
+  password: string;
+
   @IsOptional()
   description?: string;
 
