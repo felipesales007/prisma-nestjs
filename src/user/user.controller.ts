@@ -13,6 +13,7 @@ import {
   MaxFileSizeValidator,
   ParseFilePipe,
   BadRequestException,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -22,6 +23,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import multerConfig from 'src/multer-config';
 import { Request } from 'express';
 import { memoryStorage } from 'multer';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
@@ -43,6 +45,7 @@ export class UserController {
   }
 
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   async findAll() {
     return this.userService.findAll();
   }
@@ -88,7 +91,6 @@ export class UserController {
     file: Express.Multer.File,
     @Req() req: Request,
   ) {
-    console.log(user);
     if (file) {
       user.photo = `${req.protocol}://${req.get('host')}/files/${
         file.originalname

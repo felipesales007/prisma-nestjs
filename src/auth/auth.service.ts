@@ -12,8 +12,8 @@ export class AuthService {
   ) {}
 
   //validar usuário
-  async validarUsuario(username: string, password: string): Promise<any> {
-    const user = await this.userService.findOneByEmail(username);
+  async validarUsuario(email: string, password: string): Promise<any> {
+    const user = await this.userService.findOneByEmail(email);
     if (!user) {
       throw new UnauthorizedException('Usuário ou Senha Inválidos');
     }
@@ -30,7 +30,7 @@ export class AuthService {
         { email: payload.email },
         {
           secret: 'topSecret512',
-          expiresIn: '50s',
+          expiresIn: '60s',
         },
       ),
     };
