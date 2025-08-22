@@ -9,7 +9,7 @@ import { Prisma } from '@prisma/client';
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(private userService: UserService) {
     super({
-      secretOrKey: 'topSecret512',
+      secretOrKey: process.env.TOKEN_SECRET,
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
     });

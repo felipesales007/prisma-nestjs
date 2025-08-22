@@ -7,6 +7,11 @@ export class AuthController {
 
   @Post('auth/login')
   async login(@Body() body) {
-    return this.authService.validarUsuario(body.email, body.password);
+    return await this.authService.validarUsuario(body.email, body.password);
+  }
+
+  @Post('auth/refresh')
+  async reautenticar(@Body() body) {
+    return await this.authService.reautenticar(body);
   }
 }
